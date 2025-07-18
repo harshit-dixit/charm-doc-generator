@@ -3,45 +3,40 @@ from docx import Document
 from docx.shared import Inches
 import os
 
-def replace_text_preserve_style(paragraph, key, value):
-    """Replace text in a paragraph while preserving formatting."""
-    if key in paragraph.text:
-        inline = paragraph.runs
-        # Replace the key and maintain the style
-        for i in range(len(inline)):
-            if key in inline[i].text:
-                text = inline[i].text.replace(key, value)
-                inline[i].text = text
+def replace_text_in_doc(doc, key, value):
+    """Replace text in paragraphs, tables, headers, and footers."""
+    for paragraph in doc.paragraphs:
+        replace_text_preserve_style(paragraph, key, value)
 
-def replace_in_tables(doc, key, value):
-    """Replace text in document tables."""
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
                 for paragraph in cell.paragraphs:
                     replace_text_preserve_style(paragraph, key, str(value))
 
-def replace_in_headers_footers(doc, replacements):
-    """Replace text in headers and footers."""
     for section in doc.sections:
-        # Headers
         for header in [section.header, section.first_page_header, section.even_page_header]:
             if header:
                 for paragraph in header.paragraphs:
-                    for key, value in replacements.items():
-                        replace_text_preserve_style(paragraph, key, str(value))
-        # Footers
+                    replace_text_preserve_style(paragraph, key, str(value))
         for footer in [section.footer, section.first_page_footer, section.even_page_footer]:
             if footer:
                 for paragraph in footer.paragraphs:
-                    for key, value in replacements.items():
-                        replace_text_preserve_style(paragraph, key, str(value))
+                    replace_text_preserve_style(paragraph, key, str(value))
+
+def replace_text_preserve_style(paragraph, key, value):
+    """Replace text in a paragraph while preserving formatting."""
+    if key in paragraph.text:
+        inline = paragraph.runs
+        for i in range(len(inline)):
+            if key in inline[i].text:
+                text = inline[i].text.replace(key, value)
+                inline[i].text = text
 
 def insert_screenshot(doc, placeholder, image_path):
     """Replace a screenshot placeholder with an actual image."""
     for paragraph in doc.paragraphs:
         if placeholder in paragraph.text:
-            # Remove placeholder text and add the image
             paragraph.text = paragraph.text.replace(placeholder, "")
             try:
                 run = paragraph.add_run()
@@ -55,24 +50,16 @@ def process_document(template_path, output_path, data_dict, screenshot_path):
     """Process a single document with replacement data."""
     try:
         doc = Document(template_path)
-        # Create a dictionary for text replacements
-        replacements = {f"{{{{ {k.replace(' ', '_').upper()} }}}}": v for k, v in data_dict.items()}
+        # Create a dictionary for text replacements, WITH underscores in placeholders
+        replacements = {f"{{{{{k.replace(' ', '_').upper()}}}}}": v for k, v in data_dict.items()}
 
-        # Replace in paragraphs
-        for paragraph in doc.paragraphs:
-            for key, value in replacements.items():
-                replace_text_preserve_style(paragraph, key, str(value))
-        
-        # Replace in tables
+        # Replace placeholders in the entire document
         for key, value in replacements.items():
-            replace_in_tables(doc, key, str(value))
-
-        # Replace in headers and footers
-        replace_in_headers_footers(doc, replacements)
+            replace_text_in_doc(doc, key, str(value))
 
         # Insert screenshot
         if screenshot_path and os.path.exists(screenshot_path):
-            insert_screenshot(doc, '{{{{ SCREENSHOT_OUTPUT }}}}', screenshot_path)
+            insert_screenshot(doc, '{{ SCREENSHOT_OUTPUT }}', screenshot_path)
         elif screenshot_path:
             print(f"Warning: Screenshot path specified but not found: {screenshot_path}")
 
@@ -96,12 +83,12 @@ def main():
         print(f"Error reading Excel file: {e}")
         return
 
-    # Enforce placeholder relationships
     df['Description'] = df['Program Name']
     df['Test Plan Prepared By'] = df['Created By']
     df['Testing By'] = df['Test Plan Reviewed By']
     df['Test Result Prepared By'] = df['Created By']
 
+    template_folder = "charm-docs-template"
     templates = {
         "Spec.docx": "Spec_Output.docx",
         "Test Plan.docx": "Test_Plan_Output.docx",
@@ -113,13 +100,14 @@ def main():
         change_number = row['Change Number']
         screenshot_path = row.get('Screenshot Path', '')
 
-        for template_file, output_file in templates.items():
-            if os.path.exists(template_file):
+        for template_name, output_file in templates.items():
+            template_path = os.path.join(template_folder, template_name)
+            if os.path.exists(template_path):
                 base_name, ext = os.path.splitext(output_file)
                 unique_output = f"{base_name}_{change_number}{ext}"
-                process_document(template_file, unique_output, data_dict, screenshot_path)
+                process_document(template_path, unique_output, data_dict, screenshot_path)
             else:
-                print(f"Template file not found: {template_file}")
+                print(f"Template file not found: {template_path}")
 
 if __name__ == "__main__":
     main()

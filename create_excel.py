@@ -17,6 +17,7 @@ data = {
     'Testing Reviewed By': ['Indraneel Mazumder'],
     'Test Result Prepared By': ['Harshit Dixit'],
     'Test Result Reviewed By': ['Swagata Roy'],
+    'Date': ['07.07.2025'],
     'Screenshot Path': ['C:/Users/seema/Pictures/Screenshots/Screenshots(2).png']
 }
 
