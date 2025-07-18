@@ -96,6 +96,12 @@ def main():
         print(f"Error reading Excel file: {e}")
         return
 
+    # Enforce placeholder relationships
+    df['Description'] = df['Program Name']
+    df['Test Plan Prepared By'] = df['Created By']
+    df['Testing By'] = df['Test Plan Reviewed By']
+    df['Test Result Prepared By'] = df['Created By']
+
     templates = {
         "Spec.docx": "Spec_Output.docx",
         "Test Plan.docx": "Test_Plan_Output.docx",

@@ -8,6 +8,7 @@ This project automates the creation of three essential SAP ChaRM documents: the 
 - **Preserves Formatting**: Retains the original styling of your Word templates.
 - **Dynamic Placeholders**: Replaces text in paragraphs, tables, headers, and footers.
 - **Image Replacement**: Automatically inserts screenshots into the documents.
+- **Data Consistency**: Enforces consistent data across related fields.
 
 ## Prerequisites
 
@@ -40,7 +41,11 @@ pip install -r requirements.txt
     python create_excel.py
     ```
 
-2.  Open `charm_data.xlsx` and fill in the required information. Each row will produce a new set of documents.
+2.  Open `charm_data.xlsx` and fill in the required information. Each row will produce a new set of documents. The script will automatically enforce the following relationships:
+    - **Description** will be the same as **Program Name**.
+    - **Test Plan Prepared By** will be the same as **Created By**.
+    - **Testing By** will be the same as **Test Plan Reviewed By**.
+    - **Test Result Prepared By** will be the same as **Created By**.
 
 3.  **Crucially**, update the `Screenshot Path` column with the absolute file path to your screenshot image for each row.
 

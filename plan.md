@@ -30,6 +30,11 @@ Execute the following plan to provide a complete solution for the user. The user
     *   Generate a second Python script named `generate_charm_docs.py`.
     *   This script will use the `pandas` and `python-docx` libraries.
     *   It must read data from `charm_data.xlsx`.
+    *   **Enforce Data Consistency**: Before populating the documents, the script must ensure that:
+        *   `Description` is the same as `Program Name`.
+        *   `Test Plan Prepared By` is the same as `Created By`.
+        *   `Testing By` is the same as `Test Plan Reviewed By`.
+        *   `Test Result Prepared By` is the same as `Created By`.
     *   For each row in the Excel file, it should:
         *   Load the `.docx` templates (`Spec.docx`, `Test Plan.docx`, `Test Results.docx`).
         *   Replace placeholders (e.g., `{{ PROGRAM_NAME }}`) in the paragraphs, tables, headers, and footers of the documents.
@@ -96,11 +101,16 @@ Two Python scripts manage the workflow:
 - **Purpose**: The main script that performs the automation.
 - **Logic**:
     1. Reads the `charm_data.xlsx` file into a pandas DataFrame.
-    2. Iterates through each row of the DataFrame.
-    3. For each row, it opens the three `.docx` templates.
-    4. It systematically searches for and replaces all defined placeholders in paragraphs, tables, headers, and footers with the corresponding data from the row.
-    5. It replaces the screenshot placeholder with the image file specified in the `Screenshot Path`.
-    6. It saves the modified documents with a unique name incorporating the Change Number (e.g., `Spec_Output_CHG001.docx`).
+    2. **Enforces Data Consistency**: Modifies the DataFrame to ensure related fields are identical:
+        - `Description` is set to the value of `Program Name`.
+        - `Test Plan Prepared By` is set to the value of `Created By`.
+        - `Testing By` is set to the value of `Test Plan Reviewed By`.
+        - `Test Result Prepared By` is set to the value of `Created By`.
+    3. Iterates through each row of the modified DataFrame.
+    4. For each row, it opens the three `.docx` templates.
+    5. It systematically searches for and replaces all defined placeholders in paragraphs, tables, headers, and footers with the corresponding data from the row.
+    6. It replaces the screenshot placeholder with the image file specified in the `Screenshot Path`.
+    7. It saves the modified documents with a unique name incorporating the Change Number (e.g., `Spec_Output_CHG001.docx`).
 - **Libraries**: `pandas`, `python-docx`
 
 ### 5. Final Output

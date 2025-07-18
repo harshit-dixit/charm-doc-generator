@@ -8,16 +8,16 @@ data = {
     'Change Number': [2025007382],
     'Job Log Number': [2025007376],
     'Technical Name': ['ZGR_INDAS_CFS_RS_CRS_FINAL'],
-    'Description': ['ZGR_INDAS_CONSOLIDATED_FINANCIALS'],
+    'Description': ['ZGR_INDAS_CFS_RS_CRS_FINAL'],
     'Test Condition': ['Changes in existing report as per user requirement.'],
     'Customer Requirement': ['New report according to user specification'],
     'Test Plan Prepared By': ['Harshit Dixit'],
     'Test Plan Reviewed By': ['Jyosyula Siva Amrutha'],
-    'Testing By': ['Swagata Roy'],
+    'Testing By': ['Jyosyula Siva Amrutha'],
     'Testing Reviewed By': ['Indraneel Mazumder'],
     'Test Result Prepared By': ['Harshit Dixit'],
     'Test Result Reviewed By': ['Swagata Roy'],
-    'Screenshot Path': ['C:\path\to\your\screenshot.png']
+    'Screenshot Path': ['C:/Users/seema/Pictures/Screenshots/Screenshots(2).png']
 }
 
 # Create DataFrame
