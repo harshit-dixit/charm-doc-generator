@@ -18,7 +18,7 @@ data = {
     'Test Result Prepared By': ['Harshit Dixit'],
     'Test Result Reviewed By': ['Swagata Roy'],
     'Date': ['07.07.2025'],
-    'Screenshot Path': ['C:/Users/seema/Pictures/Screenshots/Screenshots(2).png']
+    'Screenshot Path': ['C:/Users/808509/Pictures/Screenshots/file.png']
 }
 
 # Create DataFrame

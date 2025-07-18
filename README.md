@@ -57,21 +57,21 @@ For the script to work, you must replace the dynamic text in your `Spec.docx`, `
 
 | Field in Excel          | Placeholder in Word Document        |
 | ----------------------- | ----------------------------------- |
-| `Program Name`          | `{{ PROGRAM_NAME }}`                |
-| `Created By`            | `{{ CREATED_BY }}`                  |
-| `Change Number`         | `{{ CHANGE_NUMBER }}`               |
-| `Job Log Number`        | `{{ JOB_LOG_NUMBER }}`              |
-| `Technical Name`        | `{{ TECHNICAL_NAME }}`              |
-| `Description`           | `{{ DESCRIPTION }}`                 |
-| `Test Condition`        | `{{ TEST_CONDITION }}`              |
-| `Customer Requirement`  | `{{ CUSTOMER_REQUIREMENT }}`        |
-| `Test Plan Prepared By` | `{{ TEST_PLAN_PREPARED_BY }}`       |
-| `Test Plan Reviewed By` | `{{ TEST_PLAN_REVIEWED_BY }}`       |
-| `Testing By`            | `{{ TESTING_BY }}`                  |
-| `Testing Reviewed By`   | `{{ TESTING_REVIEWED_BY }}`         |
-| `Test Result Prepared By`| `{{ TEST_RESULT_PREPARED_BY }}`     |
-| `Test Result Reviewed By`| `{{ TEST_RESULT_REVIEWED_BY }}`     |
-| `Screenshot Path`       | `{{ SCREENSHOT_OUTPUT }}`           |
+| `Program Name`          | `{{PROGRAM_NAME}}`                |
+| `Created By`            | `{{CREATED_BY}}`                  |
+| `Change Number`         | `{{CHANGE_NUMBER}}`               |
+| `Job Log Number`        | `{{JOB_LOG_NUMBER}}`              |
+| `Technical Name`        | `{{TECHNICAL_NAME}}`              |
+| `Description`           | `{{DESCRIPTION}}`                 |
+| `Test Condition`        | `{{TEST_CONDITION}}`              |
+| `Customer Requirement`  | `{{CUSTOMER_REQUIREMENT}}`        |
+| `Test Plan Prepared By` | `{{TEST_PLAN_PREPARED_BY}}`       |
+| `Test Plan Reviewed By` | `{{TEST_PLAN_REVIEWED_BY}}`       |
+| `Testing By`            | `{{TESTING_BY}}`                  |
+| `Testing Reviewed By`   | `{{TESTING_REVIEWED_BY}}`         |
+| `Test Result Prepared By`| `{{TEST_RESULT_PREPARED_BY}}`     |
+| `Test Result Reviewed By`| `{{TEST_RESULT_REVIEWED_BY}}`     |
+| `Screenshot Path`       | `{{SCREENSHOT_OUTPUT}}`           |
 
 ### Step 4: Run the Generator
 
